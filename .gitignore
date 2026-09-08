@@ -1,0 +1,12 @@
+node_modules/
+temporary screenshots/
+.DS_Store
+
+# Claude Code skill/tooling folders (not part of the landing page deliverable)
+Agent-Skills-for-Context-Engineering-main/
+Brand Assets/
+marketingskills-main/
+stop-slop-main/
+ui-ux-pro-max-skill-main/
+Frontend design skill.md
+CLAUDE.md
