@@ -152,6 +152,20 @@
     background: rgba(255,255,255,0.04);
   }
 
+  .brand-gradient-bg {
+    background: linear-gradient(135deg, #4a7dfb, #7b5cff 60%, #9d6bff);
+  }
+
+  .plan-badge {
+    background: linear-gradient(135deg, rgba(74,125,251,0.18), rgba(123,92,255,0.26) 55%, rgba(177,140,255,0.18));
+    box-shadow: 0 20px 45px -18px rgba(123,92,255,0.6);
+    animation: badgePop 420ms var(--ease-spring);
+  }
+  @keyframes badgePop { from { opacity: 0; transform: translateY(-6px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+  @media (prefers-reduced-motion: reduce) {
+    .plan-badge { animation: none; }
+  }
+
   .grad-text {
     background: linear-gradient(135deg, #6fa8ff, #a98bff 65%, #cbb2ff);
     -webkit-background-clip: text;
@@ -494,9 +508,14 @@ src="https://www.facebook.com/tr?id=1079764168004869&ev=PageView&noscript=1"
         Choose your plan and book your start date.
       </p>
 
-      <p id="selected-plan-note" class="mt-5 hidden">
-        <span class="chip inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-mono uppercase tracking-wider text-mute">
-          Selected plan: <span id="selected-plan-name" class="grad-text font-semibold"></span>
+      <p id="selected-plan-note" class="mt-7 hidden">
+        <span class="plan-badge border-grad inline-flex items-center gap-3 rounded-2xl pl-3 pr-6 py-3">
+          <span class="brand-gradient-bg w-7 h-7 rounded-full flex items-center justify-center shrink-0">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>
+          </span>
+          <span class="text-sm sm:text-base text-ink">
+            Selected plan: <span id="selected-plan-name" class="grad-text font-extrabold text-base sm:text-lg"></span>
+          </span>
         </span>
       </p>
     </div>
