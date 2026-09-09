@@ -499,14 +499,12 @@ src="https://www.facebook.com/tr?id=1079764168004869&ev=PageView&noscript=1"
           Selected plan: <span id="selected-plan-name" class="grad-text font-semibold"></span>
         </span>
       </p>
-
-      <div class="mt-10">
-        <a id="final-cta" href="#" target="_blank" rel="noopener" class="inline-flex items-center gap-2.5 rounded-full btn-primary px-10 py-5 text-lg font-semibold font-display">
-          Book Your Website
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
-        </a>
-      </div>
     </div>
+
+    <div class="mt-10 max-w-3xl mx-auto rounded-3xl overflow-hidden border border-hair bg-white shadow-card reveal">
+      <iframe src="https://api.leadconnectorhq.com/widget/bookings/website-reveal-call-5979" style="width:100%;border:none;overflow:hidden;min-height:700px" scrolling="no" id="msgsndr-calendar"></iframe>
+    </div>
+    <script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript"></script>
   </section>
 
 </main>
@@ -531,12 +529,6 @@ src="https://www.facebook.com/tr?id=1079764168004869&ev=PageView&noscript=1"
 </div>
 
 <script>
-  // ---------------------------------------------------------------------
-  // EDIT HERE: single source of truth for the booking link. Every "Book
-  // Your Website" / "Choose <Plan>" CTA on this page reads from this.
-  // ---------------------------------------------------------------------
-  const BOOKING_URL = "https://YOUR-BOOKING-LINK-HERE";
-
   // ---------------------------------------------------------------------
   // EDIT HERE: pricing/feature data lives in this single config object.
   // ---------------------------------------------------------------------
@@ -701,16 +693,6 @@ src="https://www.facebook.com/tr?id=1079764168004869&ev=PageView&noscript=1"
     `).join('');
   }
 
-  function buildBookingUrl(planLabel) {
-    try {
-      const url = new URL(BOOKING_URL);
-      if (planLabel) url.searchParams.set('plan', planLabel.toLowerCase());
-      return url.toString();
-    } catch (e) {
-      return BOOKING_URL;
-    }
-  }
-
   function selectPlan(planLabel) {
     try { sessionStorage.setItem('arclo_selected_plan', planLabel); } catch (e) {}
     const note = document.getElementById('selected-plan-note');
@@ -719,12 +701,9 @@ src="https://www.facebook.com/tr?id=1079764168004869&ev=PageView&noscript=1"
       name.textContent = planLabel;
       note.classList.remove('hidden');
     }
-    const finalCta = document.getElementById('final-cta');
-    if (finalCta) finalCta.href = buildBookingUrl(planLabel);
   }
 
   function initBookingLinks() {
-    document.getElementById('final-cta').href = buildBookingUrl(null);
     document.querySelectorAll('.plan-cta').forEach(btn => {
       btn.addEventListener('click', () => selectPlan(btn.dataset.plan));
     });
