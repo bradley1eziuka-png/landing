@@ -6,7 +6,7 @@
 <title>Arclo | Customer-Capture System for $127/Month</title>
 <meta name="description" content="One system for local businesses: website, Google reviews, missed-call text-back, and appointment booking for $127/month. No large upfront cost.">
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#07050d">
+<meta name="theme-color" content="#030306">
 <meta property="og:title" content="Arclo: Turn More Visitors and Calls Into Customers">
 <meta property="og:description" content="One system: website, Google reviews, missed-call text-back, and appointment booking for $127/month.">
 <meta property="og:type" content="website">
@@ -64,7 +64,7 @@
   }
 
   body {
-    background: #07050d;
+    background: #030306;
     color: #f6f4fc;
     font-family: 'Manrope', sans-serif;
     line-height: 1.7;
@@ -76,25 +76,6 @@
 
   ::selection { background: rgba(123,92,255,0.35); color: #ffffff; }
 
-  /* Layered atmosphere background */
-  .atmosphere {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    overflow: hidden;
-    background: #07050d;
-  }
-  .atmosphere::before {
-    content: '';
-    position: absolute;
-    inset: -10%;
-    background:
-      radial-gradient(50% 40% at 18% 8%, rgba(74,125,251,0.28), transparent 60%),
-      radial-gradient(45% 38% at 85% 18%, rgba(123,92,255,0.24), transparent 60%),
-      radial-gradient(60% 45% at 50% 100%, rgba(90,60,200,0.22), transparent 60%),
-      radial-gradient(35% 30% at 92% 78%, rgba(177,140,255,0.14), transparent 60%);
-  }
   .grain {
     position: fixed;
     inset: 0;
@@ -245,7 +226,7 @@ src="https://www.facebook.com/tr?id=1079764168004869&ev=PageView&noscript=1"
 </head>
 <body class="antialiased">
 
-<div class="atmosphere" aria-hidden="true"></div>
+<canvas id="bg-canvas" class="fixed inset-0 z-0 w-full h-full pointer-events-none" aria-hidden="true"></canvas>
 <svg class="grain" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
   <filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/></filter>
   <rect width="100%" height="100%" filter="url(#noiseFilter)"/>
@@ -684,6 +665,7 @@ src="https://www.facebook.com/tr?id=1079764168004869&ev=PageView&noscript=1"
   </a>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
   // ---------------------------------------------------------------------
   // EDIT HERE: the single offer's feature checklist lives in this array.
@@ -788,11 +770,113 @@ src="https://www.facebook.com/tr?id=1079764168004869&ev=PageView&noscript=1"
     items.forEach(el => io.observe(el));
   }
 
+  // Ported from threeui's aura-ui-fluid shader (three.js r128, simplex-noise
+  // fluid fragment shader on a full-bleed canvas). Wrapped in try/catch so a
+  // WebGL failure (old browser, restricted webview) can't break the rest of
+  // the page's JS; the canvas simply stays transparent over the dark body.
+  function initFluidBackground() {
+    try {
+      const canvas = document.getElementById('bg-canvas');
+      if (!canvas || !window.THREE) return;
+
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(window.innerWidth, window.innerHeight);
+
+      const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+      const scene = new THREE.Scene();
+      const geometry = new THREE.PlaneGeometry(2, 2);
+
+      const vertexShader = `
+        void main() {
+          gl_Position = vec4(position, 1.0);
+        }
+      `;
+
+      const fragmentShader = `
+        uniform float u_time;
+        uniform vec2 u_resolution;
+
+        vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+        vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+        vec3 permute(vec3 x) { return mod289(((x*34.0)+1.0)*x); }
+
+        float snoise(vec2 v) {
+          const vec4 C = vec4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);
+          vec2 i  = floor(v + dot(v, C.yy));
+          vec2 x0 = v -   i + dot(i, C.xx);
+          vec2 i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+          vec4 x12 = x0.xyxy + C.xxzz;
+          x12.xy -= i1;
+          i = mod289(i);
+          vec3 p = permute(permute(i.y + vec3(0.0, i1.y, 1.0)) + i.x + vec3(0.0, i1.x, 1.0));
+          vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy), dot(x12.zw,x12.zw)), 0.0);
+          m = m*m;
+          m = m*m;
+          vec3 x = 2.0 * fract(p * C.www) - 1.0;
+          vec3 h = abs(x) - 0.5;
+          vec3 ox = floor(x + 0.5);
+          vec3 a0 = x - ox;
+          m *= 1.79284291400159 - 0.85373472095314 * (a0*a0 + h*h);
+          vec3 g;
+          g.x  = a0.x  * x0.x  + h.x  * x0.y;
+          g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+          return 130.0 * dot(m, g);
+        }
+
+        void main() {
+          vec2 uv = gl_FragCoord.xy / u_resolution.xy;
+          uv.x *= u_resolution.x / u_resolution.y;
+
+          vec3 baseColor = vec3(0.012, 0.012, 0.02);
+          vec2 st = uv * 0.7;
+          st += vec2(snoise(st + u_time * 0.05), snoise(st - u_time * 0.05)) * 0.3;
+
+          float beam = smoothstep(0.1, 0.8, snoise(vec2(st.x + st.y * 1.5 - u_time * 0.15, u_time * 0.02)));
+          vec3 glow = mix(vec3(0.15, 0.25, 0.85), vec3(0.4, 0.2, 0.9), snoise(uv * 1.5 + u_time * 0.1) * 0.5 + 0.5);
+
+          gl_FragColor = vec4(baseColor + (glow * beam * 0.7), 1.0);
+        }
+      `;
+
+      const uniforms = {
+        u_time: { value: 0.0 },
+        u_resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
+      };
+
+      const material = new THREE.ShaderMaterial({ vertexShader, fragmentShader, uniforms });
+      scene.add(new THREE.Mesh(geometry, material));
+
+      const clock = new THREE.Clock();
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const renderFrame = () => renderer.render(scene, camera);
+
+      if (prefersReduced) {
+        renderFrame();
+      } else {
+        (function animate() {
+          uniforms.u_time.value = clock.getElapsedTime();
+          renderFrame();
+          requestAnimationFrame(animate);
+        })();
+      }
+
+      window.addEventListener('resize', () => {
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        uniforms.u_resolution.value.set(window.innerWidth, window.innerHeight);
+        if (prefersReduced) renderFrame();
+      }, { passive: true });
+    } catch (e) {
+      console.warn('Fluid background unavailable; falling back to the solid dark background.', e);
+    }
+  }
+
   renderOfferFeatures();
   renderPortfolio();
   initHeaderScroll();
   initMobileCta();
   initReveal();
+  initFluidBackground();
 </script>
 </body>
 </html>
