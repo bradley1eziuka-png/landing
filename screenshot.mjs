@@ -44,8 +44,11 @@ const filePath = path.join(outDir, filename);
 
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport });
-await page.goto(url, { waitUntil: "networkidle" });
-await page.waitForTimeout(300);
+// "load" rather than "networkidle": embedded third-party widgets (e.g. the
+// GHL calendar iframes) can hold long-lived connections open indefinitely,
+// which would make networkidle time out even once the page is visually done.
+await page.goto(url, { waitUntil: "load" });
+await page.waitForTimeout(1200);
 
 // Resize the viewport to the full document height *before* screenshotting.
 // This makes every element (incl. below-the-fold reveal/lazy content)
