@@ -6,14 +6,14 @@
 <title>Arclo | Customer-Capture System for $127/Month</title>
 <meta name="description" content="One system for local businesses: website, Google reviews, missed-call text-back, and appointment booking for $127/month. No large upfront cost.">
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#030306">
+<meta name="theme-color" content="#F8F7F2">
 <meta property="og:title" content="Arclo: Turn More Visitors and Calls Into Customers">
 <meta property="og:description" content="One system: website, Google reviews, missed-call text-back, and appointment booking for $127/month.">
 <meta property="og:type" content="website">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
@@ -21,29 +21,19 @@
     theme: {
       extend: {
         colors: {
-          void: '#07050d',
-          panel: '#0a0714',
-          surface: '#120d20',
-          surface2: '#180f2e',
-          hair: 'rgba(255,255,255,0.08)',
-          hair2: 'rgba(255,255,255,0.16)',
-          ink: '#f6f4fc',
-          mute: '#c7c0e0',
-          faint: '#8b84ac',
-          violet: '#7b5cff',
-          blue: '#4a7dfb',
-          glow: '#b18cff',
+          ink: '#0B1F3B',
+          mute: '#2F4A6D',
+          accent: '#A7B4C7',
+          alt: '#E8EBF0',
+          hair: 'rgba(167,180,199,0.45)',
+          hair2: 'rgba(167,180,199,0.7)',
         },
         fontFamily: {
-          display: ['"Bricolage Grotesque"', 'sans-serif'],
+          display: ['Manrope', 'sans-serif'],
           body: ['Manrope', 'sans-serif'],
-          mono: ['"JetBrains Mono"', 'monospace'],
         },
         boxShadow: {
-          card: '0 1px 0 0 rgba(255,255,255,0.05) inset, 0 24px 60px -24px rgba(48,32,110,0.55), 0 8px 24px -12px rgba(0,0,0,0.65)',
-          cardHover: '0 1px 0 0 rgba(255,255,255,0.07) inset, 0 32px 80px -20px rgba(76,54,170,0.65), 0 10px 30px -10px rgba(0,0,0,0.7)',
-          glowPop: '0 0 0 1px rgba(123,92,255,0.4), 0 30px 90px -20px rgba(123,92,255,0.55), 0 10px 40px -10px rgba(74,125,251,0.35)',
-          btn: '0 12px 30px -10px rgba(123,92,255,0.55)',
+          card: '0 1px 2px rgba(11,31,59,0.06), 0 6px 16px rgba(11,31,59,0.08)',
         },
       },
     },
@@ -52,7 +42,7 @@
 
 <style>
   :root{
-    --ease-spring: cubic-bezier(0.16,1,0.3,1);
+    --ease-standard: cubic-bezier(0.4,0,0.2,1);
   }
 
   * { -webkit-tap-highlight-color: transparent; }
@@ -64,76 +54,35 @@
   }
 
   body {
-    background: #030306;
-    color: #f6f4fc;
+    background: #F8F7F2;
+    color: #0B1F3B;
     font-family: 'Manrope', sans-serif;
     line-height: 1.7;
   }
 
   h1, h2, h3, h4, .font-display {
-    font-family: 'Bricolage Grotesque', sans-serif;
+    font-family: 'Manrope', sans-serif;
   }
 
-  ::selection { background: rgba(123,92,255,0.35); color: #ffffff; }
-
-  .grain {
-    position: fixed;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-    opacity: 0.05;
-    mix-blend-mode: overlay;
-  }
-
-  main, header, footer { position: relative; z-index: 2; }
-
-  .glass {
-    background: rgba(10,7,20,0.88);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255,255,255,0.14);
-  }
+  ::selection { background: rgba(47,74,109,0.22); color: #0B1F3B; }
 
   .btn-primary {
-    background: linear-gradient(135deg, #4a7dfb, #7b5cff 60%, #9d6bff);
-    color: #ffffff;
-    box-shadow: 0 12px 30px -10px rgba(123,92,255,0.55);
-    transition: transform 220ms var(--ease-spring), box-shadow 220ms var(--ease-spring), filter 220ms var(--ease-spring);
+    background: #0B1F3B;
+    color: #F8F7F2;
+    transition: background-color 200ms var(--ease-standard), transform 150ms var(--ease-standard);
   }
-  .btn-primary:hover { transform: translateY(-2px) scale(1.015); box-shadow: 0 18px 40px -12px rgba(123,92,255,0.7); filter: brightness(1.08); }
-  .btn-primary:active { transform: translateY(0) scale(0.99); }
-  .btn-primary:focus-visible { outline: 2px solid #b18cff; outline-offset: 3px; }
-
-  .btn-ghost {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.14);
-    color: #f6f4fc;
-    transition: transform 220ms var(--ease-spring), background 220ms var(--ease-spring), border-color 220ms var(--ease-spring);
-  }
-  .btn-ghost:hover { background: rgba(255,255,255,0.09); border-color: rgba(255,255,255,0.28); transform: translateY(-2px); }
-  .btn-ghost:active { transform: translateY(0); }
-  .btn-ghost:focus-visible { outline: 2px solid #b18cff; outline-offset: 3px; }
+  .btn-primary:hover { background: #2F4A6D; }
+  .btn-primary:active { transform: scale(0.98); }
+  .btn-primary:focus-visible { outline: 2px solid #0B1F3B; outline-offset: 3px; }
 
   a, button { cursor: pointer; }
   a:focus-visible, button:focus-visible, summary:focus-visible {
-    outline: 2px solid #b18cff;
+    outline: 2px solid #0B1F3B;
     outline-offset: 3px;
     border-radius: 4px;
   }
 
-  .card-tilt {
-    transition: transform 320ms var(--ease-spring), box-shadow 320ms var(--ease-spring), border-color 320ms var(--ease-spring);
-  }
-  .card-tilt:hover { transform: translateY(-6px); }
-
-  .grad-text {
-    background: linear-gradient(135deg, #6fa8ff, #a98bff 65%, #cbb2ff);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  .reveal { opacity: 0; transform: translateY(22px); transition: opacity 700ms var(--ease-spring), transform 700ms var(--ease-spring); }
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity 600ms var(--ease-standard), transform 600ms var(--ease-standard); }
   .reveal.is-visible { opacity: 1; transform: translateY(0); }
   .reveal-stagger > * { transition-delay: calc(var(--i, 0) * 90ms); }
 
@@ -143,26 +92,24 @@
   }
 
   header.scrolled {
-    background: rgba(7,5,13,0.72);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border-bottom-color: rgba(255,255,255,0.08);
+    background: #F8F7F2;
+    border-bottom-color: rgba(167,180,199,0.45);
   }
 
   #mobile-cta-bar {
     transform: translateY(120%);
-    transition: transform 320ms var(--ease-spring);
+    transition: transform 320ms var(--ease-standard);
   }
   #mobile-cta-bar.show { transform: translateY(0); }
 
   .step-banner {
-    background: linear-gradient(135deg, #c81e34, #e63946);
-    box-shadow: 0 16px 40px -16px rgba(200,30,52,0.55);
+    background: #0B1F3B;
+    color: #F8F7F2;
   }
 
   ::-webkit-scrollbar { width: 10px; }
-  ::-webkit-scrollbar-track { background: #07050d; }
-  ::-webkit-scrollbar-thumb { background: #221a3a; border-radius: 999px; }
+  ::-webkit-scrollbar-track { background: #F8F7F2; }
+  ::-webkit-scrollbar-thumb { background: #A7B4C7; border-radius: 999px; }
 </style>
 
 <meta name="facebook-domain-verification" content="h695r05mo77syeaycc0mlnhorwngpj" />
@@ -187,12 +134,6 @@ src="https://www.facebook.com/tr?id=1079764168004869&ev=PageView&noscript=1"
 </head>
 <body class="antialiased">
 
-<canvas id="bg-canvas" class="fixed inset-0 z-0 w-full h-full pointer-events-none" aria-hidden="true"></canvas>
-<svg class="grain" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-  <filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/></filter>
-  <rect width="100%" height="100%" filter="url(#noiseFilter)"/>
-</svg>
-
 <!-- ============ HEADER ============ -->
 <header id="site-header" class="fixed top-0 inset-x-0 z-50 border-b border-transparent transition-colors duration-300">
   <div class="max-w-7xl mx-auto px-5 sm:px-8 h-16 md:h-20 flex items-center justify-between">
@@ -209,56 +150,54 @@ src="https://www.facebook.com/tr?id=1079764168004869&ev=PageView&noscript=1"
 <main id="top">
 
   <!-- ============ 1. HERO + STEP 1: WATCH THIS VIDEO ============ -->
-  <section id="step-1" class="relative px-5 sm:px-8 pt-28 sm:pt-36 md:pt-44 pb-16 sm:pb-20 md:pb-24">
+  <section id="step-1" class="relative px-5 sm:px-8 pt-32 sm:pt-40 md:pt-48 pb-20 sm:pb-24 md:pb-32">
     <div class="max-w-4xl mx-auto text-center reveal">
-      <h1 class="font-display font-extrabold tracking-[-0.03em] leading-[1.08] text-[2.25rem] sm:text-5xl md:text-6xl text-ink">
-        Stop Losing Customers Between the <span class="grad-text">Call, Click, and Booking</span>.
+      <h1 class="font-display font-extrabold tracking-[-0.02em] leading-[1.15] text-[2.25rem] sm:text-5xl md:text-6xl text-ink">
+        Stop Losing Customers Between the Call, Click, and Booking.
       </h1>
 
-      <p class="mt-4 sm:mt-7 text-lg md:text-xl text-mute max-w-2xl mx-auto">
+      <p class="mt-6 sm:mt-8 text-lg md:text-xl text-mute max-w-2xl mx-auto">
         Arclo builds and manages a simple customer-capture system for your business, including your website, Google reviews, missed-call text-back, and appointment booking, for $127/month.
       </p>
     </div>
   </section>
 
   <!-- ============ 3. STEP 2: BOOK A CALL ============ -->
-  <section id="booking" class="booking-block relative px-5 sm:px-8 py-16 md:py-24 border-t border-hair overflow-hidden">
-    <div class="absolute inset-0 -z-10" aria-hidden="true" style="background: radial-gradient(60% 60% at 50% 40%, rgba(123,92,255,0.18), transparent 70%);"></div>
+  <section id="booking" class="booking-block relative px-5 sm:px-8 py-20 md:py-28 border-t border-hair">
     <div class="max-w-2xl mx-auto text-center reveal">
       <span class="step-banner inline-block rounded-2xl px-6 sm:px-8 py-3 sm:py-4">
-        <span class="font-display font-extrabold uppercase tracking-[0.08em] text-white text-base sm:text-lg">Book a Call</span>
+        <span class="font-display font-extrabold uppercase tracking-[0.08em] text-base sm:text-lg">Book a Call</span>
       </span>
       <p class="mt-6 text-base md:text-lg text-mute">Let's make sure we're a fit first.</p>
     </div>
 
-    <div class="mt-10 max-w-3xl mx-auto rounded-3xl overflow-hidden border border-hair bg-white shadow-card reveal">
+    <div class="mt-12 max-w-3xl mx-auto rounded-3xl overflow-hidden border border-hair bg-white shadow-card reveal">
       <iframe src="https://api.leadconnectorhq.com/widget/bookings/website-reveal-call-5979" style="width:100%;border:none;overflow:hidden;min-height:700px" scrolling="no" id="msgsndr-calendar-1"></iframe>
     </div>
   </section>
   <script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript"></script>
 
   <!-- ============ 4. TESTIMONIALS ============ -->
-  <section class="px-5 sm:px-8 py-16 md:py-24 border-t border-hair">
+  <section class="px-5 sm:px-8 py-20 md:py-28 border-t border-hair">
     <div class="max-w-2xl mx-auto text-center reveal">
-      <h2 class="font-display font-bold tracking-[-0.02em] text-3xl sm:text-4xl md:text-5xl text-ink">
+      <h2 class="font-display font-bold tracking-[-0.01em] text-3xl sm:text-4xl md:text-5xl text-ink">
         What Business Owners Are Saying
       </h2>
     </div>
 
-    <div id="testimonials-grid" class="mt-14 max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-6 reveal reveal-stagger"></div>
+    <div id="testimonials-grid" class="mt-16 max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-8 reveal reveal-stagger"></div>
   </section>
 
   <!-- ============ 5. FINAL CTA (repeat of Step 2) ============ -->
-  <section id="final-cta" class="booking-block relative px-5 sm:px-8 py-16 md:py-24 border-t border-hair overflow-hidden">
-    <div class="absolute inset-0 -z-10" aria-hidden="true" style="background: radial-gradient(60% 60% at 50% 40%, rgba(123,92,255,0.18), transparent 70%);"></div>
+  <section id="final-cta" class="booking-block relative px-5 sm:px-8 py-20 md:py-28 border-t border-hair">
     <div class="max-w-2xl mx-auto text-center reveal">
       <span class="step-banner inline-block rounded-2xl px-6 sm:px-8 py-3 sm:py-4">
-        <span class="font-display font-extrabold uppercase tracking-[0.08em] text-white text-base sm:text-lg">Step 2: Book a Call</span>
+        <span class="font-display font-extrabold uppercase tracking-[0.08em] text-base sm:text-lg">Step 2: Book a Call</span>
       </span>
       <p class="mt-6 text-base md:text-lg text-mute">Let's make sure we're a fit first.</p>
     </div>
 
-    <div class="mt-10 max-w-3xl mx-auto rounded-3xl overflow-hidden border border-hair bg-white shadow-card reveal">
+    <div class="mt-12 max-w-3xl mx-auto rounded-3xl overflow-hidden border border-hair bg-white shadow-card reveal">
       <iframe src="https://api.leadconnectorhq.com/widget/bookings/website-reveal-call-5979" style="width:100%;border:none;overflow:hidden;min-height:700px" scrolling="no" id="msgsndr-calendar-2"></iframe>
     </div>
   </section>
@@ -266,28 +205,27 @@ src="https://www.facebook.com/tr?id=1079764168004869&ev=PageView&noscript=1"
 </main>
 
 <!-- ============ FOOTER ============ -->
-<footer class="px-5 sm:px-8 py-10 border-t border-hair">
+<footer class="px-5 sm:px-8 py-12 border-t border-hair">
   <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
     <div>
       <p class="font-display font-bold text-ink">Arclo</p>
-      <p class="text-sm text-faint">Turn more of the people already finding your business into customers.</p>
+      <p class="text-sm text-mute">Turn more of the people already finding your business into customers.</p>
     </div>
     <div class="flex items-center gap-5">
-      <p class="text-sm text-faint">getarclo.com</p>
-      <a href="/privacy" class="text-sm text-faint hover:text-mute transition-colors duration-200 underline underline-offset-4 decoration-faint/40">Privacy Policy</a>
+      <p class="text-sm text-mute">getarclo.com</p>
+      <a href="/privacy" class="text-sm text-mute hover:text-mute transition-colors duration-200 underline underline-offset-4 decoration-mute/40">Privacy Policy</a>
     </div>
   </div>
 </footer>
 
 <!-- Mobile sticky CTA -->
 <div id="mobile-cta-bar" class="fixed bottom-0 inset-x-0 z-40 md:hidden px-4 pb-4 pt-2">
-  <a href="#booking" class="glass shadow-cardHover flex items-center justify-center gap-2 rounded-full btn-primary py-3.5 text-sm font-semibold font-display">
+  <a href="#booking" class="shadow-card flex items-center justify-center gap-2 rounded-full btn-primary py-3.5 text-sm font-semibold font-display">
     Get Started
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/></svg>
   </a>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
   // ---------------------------------------------------------------------
   // EDIT HERE: testimonial content lives in this array.
@@ -315,24 +253,24 @@ src="https://www.facebook.com/tr?id=1079764168004869&ev=PageView&noscript=1"
     },
   ];
 
-  const starIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="#f5a524" aria-hidden="true"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.562.562 0 00-.586 0L6.982 21.53a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.562.562 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>`;
-  const accentColors = ['#4a7dfb', '#7b5cff', '#b18cff', '#4a7dfb'];
+  const starIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="#0B1F3B" aria-hidden="true"><path d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.562.562 0 00-.586 0L6.982 21.53a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.562.562 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"/></svg>`;
+  const accentColors = ['#0B1F3B', '#2F4A6D', '#0B1F3B', '#2F4A6D'];
 
   function renderTestimonials() {
     const grid = document.getElementById('testimonials-grid');
     grid.innerHTML = TESTIMONIALS.map((t, i) => {
       const initials = t.name.split(' ').map(n => n[0]).join('');
       return `
-      <article style="--i:${i}; background:#f7f6fb; box-shadow: 0 24px 60px -24px rgba(0,0,0,0.5), 0 10px 30px -12px rgba(74,53,150,0.25);" class="rounded-3xl p-7 sm:p-8 card-tilt">
+      <article style="--i:${i}; background:#E8EBF0; border:1px solid rgba(11,31,59,0.08);" class="rounded-3xl p-8 sm:p-10">
         <div class="flex items-center gap-0.5" role="img" aria-label="5 out of 5 stars">
           ${starIcon}${starIcon}${starIcon}${starIcon}${starIcon}
         </div>
-        <p class="mt-5 text-sm sm:text-base leading-relaxed" style="color:#3d3850;">"${t.quote}"</p>
+        <p class="mt-5 text-sm sm:text-base leading-relaxed" style="color:#2F4A6D;">"${t.quote}"</p>
         <div class="mt-6 flex items-center gap-3">
-          <span class="w-10 h-10 rounded-full flex items-center justify-center font-display font-bold text-sm text-white shrink-0" style="background:${accentColors[i % accentColors.length]};">${initials}</span>
+          <span class="w-10 h-10 rounded-full flex items-center justify-center font-display font-bold text-sm text-[#F8F7F2] shrink-0" style="background:${accentColors[i % accentColors.length]};">${initials}</span>
           <div>
-            <p class="font-display font-bold text-sm" style="color:#171225;">${t.name}</p>
-            <p class="text-xs" style="color:#6b6580;">${t.title}</p>
+            <p class="font-display font-bold text-sm" style="color:#0B1F3B;">${t.name}</p>
+            <p class="text-xs" style="color:#2F4A6D;">${t.title}</p>
           </div>
         </div>
       </article>`;
@@ -376,112 +314,10 @@ src="https://www.facebook.com/tr?id=1079764168004869&ev=PageView&noscript=1"
     items.forEach(el => io.observe(el));
   }
 
-  // Ported from threeui's aura-ui-fluid shader (three.js r128, simplex-noise
-  // fluid fragment shader on a full-bleed canvas). Wrapped in try/catch so a
-  // WebGL failure (old browser, restricted webview) can't break the rest of
-  // the page's JS; the canvas simply stays transparent over the dark body.
-  function initFluidBackground() {
-    try {
-      const canvas = document.getElementById('bg-canvas');
-      if (!canvas || !window.THREE) return;
-
-      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      renderer.setSize(window.innerWidth, window.innerHeight);
-
-      const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-      const scene = new THREE.Scene();
-      const geometry = new THREE.PlaneGeometry(2, 2);
-
-      const vertexShader = `
-        void main() {
-          gl_Position = vec4(position, 1.0);
-        }
-      `;
-
-      const fragmentShader = `
-        uniform float u_time;
-        uniform vec2 u_resolution;
-
-        vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
-        vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
-        vec3 permute(vec3 x) { return mod289(((x*34.0)+1.0)*x); }
-
-        float snoise(vec2 v) {
-          const vec4 C = vec4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);
-          vec2 i  = floor(v + dot(v, C.yy));
-          vec2 x0 = v -   i + dot(i, C.xx);
-          vec2 i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
-          vec4 x12 = x0.xyxy + C.xxzz;
-          x12.xy -= i1;
-          i = mod289(i);
-          vec3 p = permute(permute(i.y + vec3(0.0, i1.y, 1.0)) + i.x + vec3(0.0, i1.x, 1.0));
-          vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy), dot(x12.zw,x12.zw)), 0.0);
-          m = m*m;
-          m = m*m;
-          vec3 x = 2.0 * fract(p * C.www) - 1.0;
-          vec3 h = abs(x) - 0.5;
-          vec3 ox = floor(x + 0.5);
-          vec3 a0 = x - ox;
-          m *= 1.79284291400159 - 0.85373472095314 * (a0*a0 + h*h);
-          vec3 g;
-          g.x  = a0.x  * x0.x  + h.x  * x0.y;
-          g.yz = a0.yz * x12.xz + h.yz * x12.yw;
-          return 130.0 * dot(m, g);
-        }
-
-        void main() {
-          vec2 uv = gl_FragCoord.xy / u_resolution.xy;
-          uv.x *= u_resolution.x / u_resolution.y;
-
-          vec3 baseColor = vec3(0.012, 0.012, 0.02);
-          vec2 st = uv * 0.7;
-          st += vec2(snoise(st + u_time * 0.05), snoise(st - u_time * 0.05)) * 0.3;
-
-          float beam = smoothstep(0.1, 0.8, snoise(vec2(st.x + st.y * 1.5 - u_time * 0.15, u_time * 0.02)));
-          vec3 glow = mix(vec3(0.15, 0.25, 0.85), vec3(0.4, 0.2, 0.9), snoise(uv * 1.5 + u_time * 0.1) * 0.5 + 0.5);
-
-          gl_FragColor = vec4(baseColor + (glow * beam * 0.7), 1.0);
-        }
-      `;
-
-      const uniforms = {
-        u_time: { value: 0.0 },
-        u_resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
-      };
-
-      const material = new THREE.ShaderMaterial({ vertexShader, fragmentShader, uniforms });
-      scene.add(new THREE.Mesh(geometry, material));
-
-      const clock = new THREE.Clock();
-      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const renderFrame = () => renderer.render(scene, camera);
-
-      if (prefersReduced) {
-        renderFrame();
-      } else {
-        (function animate() {
-          uniforms.u_time.value = clock.getElapsedTime();
-          renderFrame();
-          requestAnimationFrame(animate);
-        })();
-      }
-
-      window.addEventListener('resize', () => {
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        uniforms.u_resolution.value.set(window.innerWidth, window.innerHeight);
-        if (prefersReduced) renderFrame();
-      }, { passive: true });
-    } catch (e) {
-      console.warn('Fluid background unavailable; falling back to the solid dark background.', e);
-    }
-  }
-
   renderTestimonials();
   initHeaderScroll();
   initMobileCta();
   initReveal();
-  initFluidBackground();
 </script>
 </body>
 </html>

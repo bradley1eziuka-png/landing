@@ -6,11 +6,11 @@
 <title>Privacy Policy | Arclo</title>
 <meta name="description" content="Arclo's privacy policy: what information we collect, why we collect it, and how it's handled.">
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#030306">
+<meta name="theme-color" content="#F8F7F2">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
@@ -18,23 +18,16 @@
     theme: {
       extend: {
         colors: {
-          void: '#07050d',
-          panel: '#0a0714',
-          surface: '#120d20',
-          surface2: '#180f2e',
-          hair: 'rgba(255,255,255,0.08)',
-          hair2: 'rgba(255,255,255,0.16)',
-          ink: '#f6f4fc',
-          mute: '#c7c0e0',
-          faint: '#8b84ac',
-          violet: '#7b5cff',
-          blue: '#4a7dfb',
-          glow: '#b18cff',
+          ink: '#0B1F3B',
+          mute: '#2F4A6D',
+          accent: '#A7B4C7',
+          alt: '#E8EBF0',
+          hair: 'rgba(167,180,199,0.45)',
+          hair2: 'rgba(167,180,199,0.7)',
         },
         fontFamily: {
-          display: ['"Bricolage Grotesque"', 'sans-serif'],
+          display: ['Manrope', 'sans-serif'],
           body: ['Manrope', 'sans-serif'],
-          mono: ['"JetBrains Mono"', 'monospace'],
         },
       },
     },
@@ -45,45 +38,42 @@
   * { -webkit-tap-highlight-color: transparent; }
 
   body {
-    background: #030306;
-    color: #f6f4fc;
+    background: #F8F7F2;
+    color: #0B1F3B;
     font-family: 'Manrope', sans-serif;
     line-height: 1.7;
   }
 
   h1, h2, .font-display {
-    font-family: 'Bricolage Grotesque', sans-serif;
+    font-family: 'Manrope', sans-serif;
   }
 
-  ::selection { background: rgba(123,92,255,0.35); color: #ffffff; }
+  ::selection { background: rgba(47,74,109,0.22); color: #0B1F3B; }
 
   .btn-primary {
-    background: linear-gradient(135deg, #4a7dfb, #7b5cff 60%, #9d6bff);
-    color: #ffffff;
-    box-shadow: 0 12px 30px -10px rgba(123,92,255,0.55);
-    transition: transform 220ms cubic-bezier(0.16,1,0.3,1), box-shadow 220ms cubic-bezier(0.16,1,0.3,1), filter 220ms cubic-bezier(0.16,1,0.3,1);
+    background: #0B1F3B;
+    color: #F8F7F2;
+    transition: background-color 200ms cubic-bezier(0.4,0,0.2,1);
   }
-  .btn-primary:hover { transform: translateY(-2px) scale(1.015); box-shadow: 0 18px 40px -12px rgba(123,92,255,0.7); filter: brightness(1.08); }
-  .btn-primary:active { transform: translateY(0) scale(0.99); }
-  .btn-primary:focus-visible { outline: 2px solid #b18cff; outline-offset: 3px; }
+  .btn-primary:hover { background: #2F4A6D; }
+  .btn-primary:active { transform: scale(0.98); }
+  .btn-primary:focus-visible { outline: 2px solid #0B1F3B; outline-offset: 3px; }
 
   a, button { cursor: pointer; }
   a:focus-visible, button:focus-visible {
-    outline: 2px solid #b18cff;
+    outline: 2px solid #0B1F3B;
     outline-offset: 3px;
     border-radius: 4px;
   }
 
   header.scrolled {
-    background: rgba(7,5,13,0.72);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border-bottom-color: rgba(255,255,255,0.08);
+    background: #F8F7F2;
+    border-bottom-color: rgba(167,180,199,0.45);
   }
 
   ::-webkit-scrollbar { width: 10px; }
-  ::-webkit-scrollbar-track { background: #07050d; }
-  ::-webkit-scrollbar-thumb { background: #221a3a; border-radius: 999px; }
+  ::-webkit-scrollbar-track { background: #F8F7F2; }
+  ::-webkit-scrollbar-thumb { background: #A7B4C7; border-radius: 999px; }
 </style>
 
 <meta name="facebook-domain-verification" content="h695r05mo77syeaycc0mlnhorwngpj" />
@@ -124,9 +114,9 @@ src="https://www.facebook.com/tr?id=1079764168004869&ev=PageView&noscript=1"
 <!-- ============ PRIVACY POLICY ============ -->
 <main class="px-5 sm:px-8 pt-32 pb-24 md:pt-40 md:pb-32">
   <div class="max-w-2xl mx-auto">
-    <p class="font-mono text-xs uppercase tracking-[0.2em] text-faint">Legal</p>
+    <p class="text-xs uppercase tracking-[0.2em] text-mute font-semibold">Legal</p>
     <h1 class="mt-3 font-display font-extrabold tracking-[-0.02em] text-4xl sm:text-5xl text-ink">Privacy Policy</h1>
-    <p class="mt-4 text-sm text-faint">Last updated: September 11, 2026</p>
+    <p class="mt-4 text-sm text-mute">Last updated: September 11, 2026</p>
 
     <div class="mt-10 space-y-10 text-base text-mute">
       <p>
@@ -193,7 +183,7 @@ src="https://www.facebook.com/tr?id=1079764168004869&ev=PageView&noscript=1"
         <h2 class="font-display font-bold text-xl sm:text-2xl text-ink">Contact Us</h2>
         <p class="mt-3">
           If you have questions about this policy, or you'd like to ask us to update or delete your information, contact us at
-          <a href="mailto:bradley@getarclo.com" class="text-ink underline underline-offset-4 decoration-faint/50 hover:text-mute transition-colors duration-200">bradley@getarclo.com</a>.
+          <a href="mailto:bradley@getarclo.com" class="text-ink underline underline-offset-4 decoration-mute/50 hover:text-mute transition-colors duration-200">bradley@getarclo.com</a>.
         </p>
       </section>
     </div>
@@ -208,15 +198,15 @@ src="https://www.facebook.com/tr?id=1079764168004869&ev=PageView&noscript=1"
 </main>
 
 <!-- ============ FOOTER ============ -->
-<footer class="px-5 sm:px-8 py-10 border-t border-hair">
+<footer class="px-5 sm:px-8 py-12 border-t border-hair">
   <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
     <div>
       <p class="font-display font-bold text-ink">Arclo</p>
-      <p class="text-sm text-faint">Websites That Win You Customers</p>
+      <p class="text-sm text-mute">Websites That Win You Customers</p>
     </div>
     <div class="flex items-center gap-5">
-      <p class="text-sm text-faint">getarclo.com</p>
-      <a href="/privacy" class="text-sm text-faint hover:text-mute transition-colors duration-200 underline underline-offset-4 decoration-faint/40">Privacy Policy</a>
+      <p class="text-sm text-mute">getarclo.com</p>
+      <a href="/privacy" class="text-sm text-mute hover:text-mute transition-colors duration-200 underline underline-offset-4 decoration-mute/40">Privacy Policy</a>
     </div>
   </div>
 </footer>
