@@ -2,6 +2,10 @@ node_modules/
 temporary screenshots/
 .DS_Store
 
+# Raw logo source files (large, unoptimized); the deployed asset is logo.png
+Transparent white.png
+Transparent white copy.png
+
 # Claude Code skill/tooling folders (not part of the landing page deliverable)
 Agent-Skills-for-Context-Engineering-main/
 Brand Assets/
