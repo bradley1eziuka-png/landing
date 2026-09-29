@@ -133,19 +133,19 @@
     transition: filter 600ms var(--ease-standard), transform 600ms var(--ease-standard);
   }
 
-  /* Locked (pre-quiz) state: the VSL autoplays muted/looping right away
-     so a visitor can see there's real content waiting, but blurred and
-     non-interactive until the quiz is submitted. Added/removed by JS
-     (initVideoGate/revealVsl) rather than baked into the markup, so a
-     no-js visitor just gets a normal, sharp, controllable video instead
-     of one stuck blurred forever. Scaled up slightly so the blur
-     doesn't show a soft edge inside the rounded/cropped container. */
+  /* Locked (pre-quiz) state: the VSL sits paused on its poster frame,
+     lightly blurred so a visitor can tell there's real content waiting
+     without it being legible, with the play button visible on top.
+     Added/removed by JS (initVideoGate/revealVsl) rather than baked
+     into the markup, so a no-js visitor just gets a normal, sharp,
+     controllable video instead of one stuck blurred forever. Scaled up
+     slightly so the blur doesn't show a soft edge inside the
+     rounded/cropped container. */
   .reveal-video.is-locked .reveal-video__el {
-    filter: blur(24px);
+    filter: blur(10px);
     transform: scale(1.08);
     pointer-events: none;
   }
-  .reveal-video.is-locked .reveal-video__play { display: none; }
 
   .reveal-video__play {
     position: absolute;
@@ -246,25 +246,15 @@ src="https://www.facebook.com/tr?id=1079764168004869&ev=PageView&noscript=1"
        to be the first (and only) thing visible on load, with nothing
        else competing for attention or offering somewhere else to go. -->
   <section id="step-1" class="relative px-5 sm:px-8 pt-8 sm:pt-12 md:pt-16 pb-16 sm:pb-20 md:pb-24">
-    <div class="max-w-4xl mx-auto text-center reveal">
-      <h1 class="font-display font-extrabold tracking-[-0.02em] leading-[1.15] text-[2.25rem] sm:text-5xl md:text-6xl text-ink">
-        Stop Losing Customers Between the Call, Click, and Booking.
-      </h1>
-
-      <p class="mt-6 sm:mt-8 text-lg md:text-xl text-mute max-w-2xl mx-auto">
-        Arclo builds and manages a simple customer-capture system for your business, including your website, Google reviews, missed-call text-back, and appointment booking, for $127/month.
-      </p>
-    </div>
-
-    <div class="mt-10 sm:mt-12 text-center reveal">
+    <div class="mt-2 sm:mt-4 text-center reveal">
       <span class="step-banner inline-block rounded-2xl px-5 sm:px-8 py-2.5 sm:py-4">
         <span class="font-display font-extrabold uppercase tracking-[0.08em] text-sm sm:text-lg">Step 1: Watch This Video</span>
       </span>
 
       <div id="video-gate" class="mt-6 sm:mt-8 max-w-2xl mx-auto">
-        <h2 class="font-display font-extrabold tracking-[-0.01em] leading-[1.3] text-2xl sm:text-3xl md:text-4xl text-ink">
+        <h1 class="font-display font-extrabold tracking-[-0.01em] leading-[1.3] text-2xl sm:text-3xl md:text-4xl text-ink">
           We Help Contractors Get More Jobs With Smart Websites, 5-Star Reviews, and Missed-Call Text-Back, for Just <span style="color:#C81E34;">$127/Month</span>
-        </h2>
+        </h1>
         <p class="mt-4 text-base sm:text-lg text-mute">
           Answer a few quick questions and we'll show you exactly how it works.
         </p>
@@ -281,9 +271,6 @@ src="https://www.facebook.com/tr?id=1079764168004869&ev=PageView&noscript=1"
             src="/assets/video/reveal-vsl.mp4"
             poster="/assets/video/reveal-vsl-poster.jpg"
             controls
-            autoplay
-            muted
-            loop
             playsinline
             preload="auto"
             controlsList="nodownload noplaybackrate noremoteplayback"
@@ -483,6 +470,10 @@ src="https://www.facebook.com/tr?id=1079764168004869&ev=PageView&noscript=1"
     video.addEventListener('contextmenu', (event) => event.preventDefault());
 
     playButton.addEventListener('click', () => {
+      if (wrap.classList.contains('is-locked')) {
+        openQuizModal(playButton);
+        return;
+      }
       video.play();
     });
 
