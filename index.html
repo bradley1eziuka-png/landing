@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -109,6 +109,70 @@
     color: #F8F7F2;
   }
 
+  /* Self-hosted VSL player. Sits on top of the video itself, not the
+     page background, so it keeps a dark navy/off-white treatment even
+     though the rest of the page is light. */
+  .reveal-video {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #0B1F3B;
+  }
+
+  @media (min-width: 640px) {
+    .reveal-video {
+      border-radius: 1.5rem;
+      box-shadow: 0 1px 2px rgba(11,31,59,0.06), 0 6px 16px rgba(11,31,59,0.08);
+    }
+  }
+
+  .reveal-video__el {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    border: 0;
+  }
+
+  .reveal-video__play {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background: rgba(11,31,59,0.22);
+    border: 0;
+    cursor: pointer;
+    transition: background-color 200ms var(--ease-standard);
+  }
+  .reveal-video__play:hover { background: rgba(11,31,59,0.32); }
+  .reveal-video__play:focus-visible { outline: 2px solid #F8F7F2; outline-offset: -6px; }
+
+  .reveal-video__play svg {
+    width: 25%;
+    max-width: 88px;
+    min-width: 56px;
+    height: auto;
+    filter: drop-shadow(0 8px 24px rgba(11,31,59,0.35));
+    transition: transform 160ms var(--ease-standard);
+  }
+  .reveal-video__play:hover svg,
+  .reveal-video__play:focus-visible svg { transform: scale(1.06); }
+
+  /* Once JS confirms playback started, native controls take over. */
+  .reveal-video.is-playing .reveal-video__play { display: none; }
+
+  /* No JS means wireRevealVideo() never ran to wire up tap-to-play, so
+     the overlay would just sit there blocking native <video controls>
+     underneath. Hide it and fall back to a plain, fully usable player. */
+  .no-js .reveal-video__play { display: none; }
+
   ::-webkit-scrollbar { width: 10px; }
   ::-webkit-scrollbar-track { background: #F8F7F2; }
   ::-webkit-scrollbar-thumb { background: #A7B4C7; border-radius: 999px; }
@@ -152,7 +216,7 @@ src="https://www.facebook.com/tr?id=1079764168004869&ev=PageView&noscript=1"
 <main id="top">
 
   <!-- ============ 1. HERO + STEP 1: WATCH THIS VIDEO ============ -->
-  <section id="step-1" class="relative px-5 sm:px-8 pt-32 sm:pt-40 md:pt-48 pb-20 sm:pb-24 md:pb-32">
+  <section id="step-1" class="relative px-5 sm:px-8 pt-32 sm:pt-40 md:pt-48 pb-16 sm:pb-20 md:pb-24">
     <div class="max-w-4xl mx-auto text-center reveal">
       <h1 class="font-display font-extrabold tracking-[-0.02em] leading-[1.15] text-[2.25rem] sm:text-5xl md:text-6xl text-ink">
         Stop Losing Customers Between the Call, Click, and Booking.
@@ -161,6 +225,33 @@ src="https://www.facebook.com/tr?id=1079764168004869&ev=PageView&noscript=1"
       <p class="mt-6 sm:mt-8 text-lg md:text-xl text-mute max-w-2xl mx-auto">
         Arclo builds and manages a simple customer-capture system for your business, including your website, Google reviews, missed-call text-back, and appointment booking, for $127/month.
       </p>
+    </div>
+
+    <div class="mt-10 sm:mt-12 text-center reveal">
+      <span class="step-banner inline-block rounded-2xl px-5 sm:px-8 py-2.5 sm:py-4">
+        <span class="font-display font-extrabold uppercase tracking-[0.08em] text-sm sm:text-lg">Step 1: Watch This Video</span>
+      </span>
+
+      <div class="reveal-video-wrap -mx-5 sm:mx-auto sm:max-w-3xl mt-6 sm:mt-8">
+        <div class="reveal-video">
+          <video
+            class="reveal-video__el"
+            src="/assets/video/reveal-vsl.mp4"
+            poster="/assets/video/reveal-vsl-poster.jpg"
+            controls
+            playsinline
+            preload="metadata"
+            controlsList="nodownload noplaybackrate noremoteplayback"
+            disablePictureInPicture
+          ></video>
+          <button type="button" class="reveal-video__play" aria-label="Play video">
+            <svg viewBox="0 0 80 80" aria-hidden="true">
+              <circle cx="40" cy="40" r="40" fill="#0B1F3B" />
+              <path d="M32 24.5v31l26-15.5-26-15.5z" fill="#F8F7F2" />
+            </svg>
+          </button>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -316,10 +407,33 @@ src="https://www.facebook.com/tr?id=1079764168004869&ev=PageView&noscript=1"
     items.forEach(el => io.observe(el));
   }
 
+  function wireRevealVideo() {
+    const wrap = document.querySelector('.reveal-video');
+    if (!wrap) return;
+
+    const video = wrap.querySelector('.reveal-video__el');
+    const playButton = wrap.querySelector('.reveal-video__play');
+    if (!video || !playButton) return;
+
+    // Deterrent only, anyone can still save the file from the network
+    // tab. Scoped to this element, not the whole page.
+    video.addEventListener('contextmenu', (event) => event.preventDefault());
+
+    playButton.addEventListener('click', () => {
+      video.play();
+    });
+
+    video.addEventListener('play', () => {
+      wrap.classList.add('is-playing');
+    }, { once: true });
+  }
+
+  document.documentElement.classList.remove('no-js');
   renderTestimonials();
   initHeaderScroll();
   initMobileCta();
   initReveal();
+  wireRevealVideo();
 </script>
 </body>
 </html>
