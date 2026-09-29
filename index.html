@@ -49,7 +49,7 @@
 
   * { -webkit-tap-highlight-color: transparent; }
 
-  html { scroll-padding-top: 90px; }
+  html { scroll-padding-top: 16px; }
 
   @media (prefers-reduced-motion: no-preference) {
     html { scroll-behavior: smooth; }
@@ -93,11 +93,6 @@
     * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
   }
 
-  header.scrolled {
-    background: #F8F7F2;
-    border-bottom-color: rgba(167,180,199,0.45);
-  }
-
   #mobile-cta-bar {
     transform: translateY(120%);
     transition: transform 320ms var(--ease-standard);
@@ -135,7 +130,22 @@
     display: block;
     object-fit: cover;
     border: 0;
+    transition: filter 600ms var(--ease-standard), transform 600ms var(--ease-standard);
   }
+
+  /* Locked (pre-quiz) state: the VSL autoplays muted/looping right away
+     so a visitor can see there's real content waiting, but blurred and
+     non-interactive until the quiz is submitted. Added/removed by JS
+     (initVideoGate/revealVsl) rather than baked into the markup, so a
+     no-js visitor just gets a normal, sharp, controllable video instead
+     of one stuck blurred forever. Scaled up slightly so the blur
+     doesn't show a soft edge inside the rounded/cropped container. */
+  .reveal-video.is-locked .reveal-video__el {
+    filter: blur(24px);
+    transform: scale(1.08);
+    pointer-events: none;
+  }
+  .reveal-video.is-locked .reveal-video__play { display: none; }
 
   .reveal-video__play {
     position: absolute;
@@ -229,23 +239,13 @@ src="https://www.facebook.com/tr?id=1079764168004869&ev=PageView&noscript=1"
 </head>
 <body class="antialiased">
 
-<!-- ============ HEADER ============ -->
-<header id="site-header" class="fixed top-0 inset-x-0 z-50 border-b border-transparent transition-colors duration-300">
-  <div class="max-w-7xl mx-auto px-5 sm:px-8 h-16 md:h-20 flex items-center justify-between">
-    <a href="#top" class="flex items-center gap-2.5 group">
-      <img src="/logo.png" alt="Arclo" width="26" height="25" class="object-contain">
-      <span class="font-display font-bold text-lg tracking-tight text-ink">Arclo</span>
-    </a>
-    <a href="#booking" class="inline-flex items-center rounded-full btn-primary px-4 sm:px-5 py-2 sm:py-2.5 text-sm font-semibold">
-      Get Started
-    </a>
-  </div>
-</header>
-
 <main id="top">
 
   <!-- ============ 1. HERO + STEP 1: WATCH THIS VIDEO ============ -->
-  <section id="step-1" class="relative px-5 sm:px-8 pt-32 sm:pt-40 md:pt-48 pb-16 sm:pb-20 md:pb-24">
+  <!-- No site header on this page by design: the hero + video are meant
+       to be the first (and only) thing visible on load, with nothing
+       else competing for attention or offering somewhere else to go. -->
+  <section id="step-1" class="relative px-5 sm:px-8 pt-8 sm:pt-12 md:pt-16 pb-16 sm:pb-20 md:pb-24">
     <div class="max-w-4xl mx-auto text-center reveal">
       <h1 class="font-display font-extrabold tracking-[-0.02em] leading-[1.15] text-[2.25rem] sm:text-5xl md:text-6xl text-ink">
         Stop Losing Customers Between the Call, Click, and Booking.
@@ -274,15 +274,18 @@ src="https://www.facebook.com/tr?id=1079764168004869&ev=PageView&noscript=1"
         </button>
       </div>
 
-      <div id="video-reveal-wrap" class="reveal-video-wrap -mx-5 sm:mx-auto sm:max-w-3xl mt-6 sm:mt-8" hidden>
-        <div class="reveal-video">
+      <div id="video-reveal-wrap" class="reveal-video-wrap -mx-5 sm:mx-auto sm:max-w-3xl mt-6 sm:mt-8">
+        <div class="reveal-video" id="reveal-video-box">
           <video
             class="reveal-video__el"
             src="/assets/video/reveal-vsl.mp4"
             poster="/assets/video/reveal-vsl-poster.jpg"
             controls
+            autoplay
+            muted
+            loop
             playsinline
-            preload="metadata"
+            preload="auto"
             controlsList="nodownload noplaybackrate noremoteplayback"
             disablePictureInPicture
           ></video>
@@ -435,13 +438,6 @@ src="https://www.facebook.com/tr?id=1079764168004869&ev=PageView&noscript=1"
         </div>
       </article>`;
     }).join('');
-  }
-
-  function initHeaderScroll() {
-    const header = document.getElementById('site-header');
-    const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 12);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
   }
 
   function initMobileCta() {
@@ -674,14 +670,24 @@ src="https://www.facebook.com/tr?id=1079764168004869&ev=PageView&noscript=1"
     }
   }
 
+  function initVideoGate() {
+    const box = document.getElementById('reveal-video-box');
+    if (box) box.classList.add('is-locked');
+  }
+
   function revealVsl() {
     const gate = document.getElementById('video-gate');
-    const videoWrap = document.getElementById('video-reveal-wrap');
-    if (!gate || !videoWrap) return;
+    const box = document.getElementById('reveal-video-box');
+    if (!gate || !box) return;
     gate.hidden = true;
-    videoWrap.hidden = false;
-    const video = videoWrap.querySelector('.reveal-video__el');
-    if (video) video.play().catch(() => {});
+    box.classList.remove('is-locked');
+    const video = box.querySelector('.reveal-video__el');
+    if (video) {
+      video.loop = false;
+      video.muted = false;
+      video.currentTime = 0;
+      video.play().catch(() => {});
+    }
   }
 
   function initQuiz() {
@@ -699,10 +705,10 @@ src="https://www.facebook.com/tr?id=1079764168004869&ev=PageView&noscript=1"
 
   document.documentElement.classList.remove('no-js');
   renderTestimonials();
-  initHeaderScroll();
   initMobileCta();
   initReveal();
   wireRevealVideo();
+  initVideoGate();
   initQuiz();
 </script>
 </body>
